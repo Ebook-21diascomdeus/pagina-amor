@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Minha Princesa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffcce6, #ffe6f2, #f0e6ff);
+            color: #8a2a61;
+            min-height: 100vh;
+            padding: 15px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 25px 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(214, 51, 132, 0.3);
+            animation: float 6s ease-in-out infinite;
+            font-size: 18px !important;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: #d63384;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #8a2a61;
+        }
+
+        .music-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .music-player {
+            width: 100%;
+            max-width: 100%;
+            background: linear-gradient(to right, #ffcce6, #f0e6ff);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .player-btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .player-btn:hover {
+            background: #b82a73;
+            transform: scale(1.05);
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .music-details h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .music-details p {
+            font-size: 1rem;
+        }
+
+        .lyrics {
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 12px;
+            background-color: rgba(255, 240, 245, 0.7);
+            border-radius: 10px;
+            font-style: italic;
+            line-height: 1.5;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .carousel-section {
+            margin-bottom: 25px;
+        }
+
+        .carousel-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            color: #d63384;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+
+        .carousel-item img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 10px;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: #d63384;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d63384;
+            margin: 0 4px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .indicator.active {
+            opacity: 1;
+        }
+
+        .counters {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .counter {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .counter:hover {
+            transform: translateY(-3px);
+        }
+
+        .counter h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #d63384;
+        }
+
+        .counter .days {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #d63384;
+        }
+
+        .counter .date {
+            font-size: 0.95rem;
+            margin-top: 5px;
+            color: #8a2a61;
+        }
+
+        .message-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .message-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #d63384;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .heart-icon {
+            color: #ff4d94;
+            font-size: 1.3rem;
+            margin: 0 4px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            color: #8a2a61;
+            font-size: 0.85rem;
+        }
+
+        /* Melhorias para telas muito pequenas */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .music-section, .message-section {
+                padding: 15px 12px;
+            }
+            
+            .carousel {
+                height: 380px;
+            }
+            
+            .carousel-container {
+                max-width: 300px;
+            }
+            
+            .counter .days {
+                font-size: 1.8rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+                text-align: left;
+            }
+            
+            .player-btn {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .lyrics {
+                font-size: 0.9rem;
+                max-height: 150px;
+            }
+        }
+
+        /* Melhorias para tablets */
+        @media (min-width: 769px) {
+            .counters {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .counter {
+                width: 48%;
+            }
+        }
+
+        /* Melhorias para orientação paisagem em mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .carousel {
+                height: 300px;
+            }
+            
+            .lyrics {
+                max-height: 120px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Prevenir zoom em inputs em iOS */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="hearts" id="hearts-container"></div>
+            <h1>Para Minha Princesa</h1>
+            <p class="subtitle">Uma página especial para celebrar nosso amor</p>
+        </header>
+
+        <section class="music-section">
+            <div class="music-info">
+                <div class="music-details">
+                    <h2>Princesa - Ana Castela & Gustavo Mioto</h2>
+                    <p>Nossa música especial</p>
+                </div>
+            </div>
+            <div class="music-player">
+                <audio id="song" loop>
+                    <source src="https://cdn.pixabay.com/download/audio/2022/11/14/audio_ec1f6b3d2a.mp3?filename=love-song-2-193166.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <div class="player-controls">
+                    <button class="player-btn" id="playBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="player-btn" id="pauseBtn">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="player-btn" id="stopBtn">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="lyrics">
+                <p>Eu quero ser o seu abrigo<br>
+                O seu porto seguro, sua melhor amiga<br>
+                Eu quero ser a sua calmaria<br>
+                Depois de um dia cheio de agonia</p>
+                
+                <p>Eu quero ser o seu colo<br>
+                Quando o mundo inteiro estiver frio<br>
+                Eu quero ser o seu sorriso<br>
+                Quando a tristeza vier de surpresa</p>
+                
+                <p>Eu quero ser a sua heroína<br>
+                A sua rainha, a sua princesa<br>
+                Eu quero ser a sua alguém<br>
+                Pra dividir a vida inteira com você</p>
+                
+                <p>Eu quero ser o seu abraço<br>
+                Quando você precisar de um carinho<br>
+                Eu quero ser o seu refúgio<br>
+                Quando o mundo não fizer sentido</p>
+            </div>
+        </section>
+
+        <section class="carousel-section">
+            <h2 class="carousel-title">Nossos Momentos</h2>
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item">
+                            <img src="./imagens/img1.jpeg" alt="Nosso primeiro encontro">
+                            <div class="carousel-caption">Obrigada por tudo</div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./imagens/img2.jpeg" alt="Dia no parque">
+                            <div class="carousel-caption">Meu amor</div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./imagens/img3.jpeg" alt="Jantar romântico">
+                            <div class="carousel-caption">Minha vidinha </div>
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev">❮</button>
+                        <button class="carousel-btn next">❯</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <!-- Os indicadores serão gerados pelo JavaScript -->
+            </div>
+        </section>
+
+        <section class="counters">
+            <div class="counter">
+                <h3>Desde nosso primeiro encontro</h3>
+                <div class="days" id="days-since-first-meeting">-</div>
+                <div class="date">05 de abril de 2025</div>
+            </div>
+            <div class="counter">
+                <h3>Desde que começamos a namorar</h3>
+                <div class="days" id="days-since-dating">-</div>
+                <div class="date">21 de abril de 2025</div>
+            </div>
+        </section>
+
+        <section class="message-section">
+            <h2>Para Minha Princesa</h2>
+            <div class="message">
+                <p>Minha querida,</p>
+                <p>Desde nosso primeiro encontro em 05 de abril de 2025, minha vida ganhou cores que eu nem sabia que existiam. Cada momento ao seu lado é especial e único. Quando oficializamos nosso namoro no dia 21 de abril, foi a realização de um sonho que eu nem sabia que tinha.</p>
+                <p>Você é a pessoa mais incrível que já conheci, e cada dia ao seu lado me faz perceber o quanto sou sortuda por ter você na minha vida. Sua risada é a minha música favorita, seu abraço é o meu lugar favorito e seu amor é o meu maior tesouro.</p>
+                <p>Esta página é apenas uma pequena demonstração do que sinto por você. Mal posso esperar para preenchê-la com nossas próprias fotos e criar ainda mais memórias juntas.</p>
+                <p>Te amo mais do que palavras podem expressar <span class="heart-icon">♥</span></p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Feito com amor para minha princesa • 21 de novembro de 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Carrossel de imagens
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselInner = document.querySelector('.carousel-inner');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
+            
+            let currentIndex = 0;
+            const totalItems = carouselItems.length;
+            
+            // Criar indicadores
+            carouselItems.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+            
+            const indicators = document.querySelectorAll('.indicator');
+            
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Atualizar indicadores
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarousel();
+            }
+            
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateCarousel();
+            }
+            
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Auto avançar o carrossel
+            setInterval(nextSlide, 5000);
+            
+            // Contagem de dias
+            function calculateDaysSince(dateString) {
+                const targetDate = new Date(dateString);
+                const today = new Date('2025-11-21');
+                const timeDiff = today.getTime() - targetDate.getTime();
+                return Math.floor(timeDiff / (1000 * 3600 * 24));
+            }
+            
+            const daysSinceFirstMeeting = calculateDaysSince('2025-04-05');
+            const daysSinceDating = calculateDaysSince('2025-04-21');
+            
+            document.getElementById('days-since-first-meeting').textContent = daysSinceFirstMeeting + ' dias';
+            document.getElementById('days-since-dating').textContent = daysSinceDating + ' dias';
+            
+            // Controles de música
+            const song = document.getElementById('song');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            
+            playBtn.addEventListener('click', () => {
+                song.play();
+            });
+            
+            pauseBtn.addEventListener('click', () => {
+                song.pause();
+            });
+            
+            stopBtn.addEventListener('click', () => {
+                song.pause();
+                song.currentTime = 0;
+            });
+            
+            // Criar corações flutuantes
+            const heartsContainer = document.getElementById('hearts-container');
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '♥';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 15 + 12) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heartsContainer.appendChild(heart);
+            }
+
+            // Melhorar acessibilidade em mobile
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
